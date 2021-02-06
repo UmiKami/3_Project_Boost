@@ -31,6 +31,18 @@ public class Rocket : MonoBehaviour
             audioSource.Stop();
         }
     }
+
+    void OnCollisionEnter(Collision collision){
+        switch(collision.gameObject.tag){
+            case "Friendly":
+                print("OK!");    
+                break;
+            default:
+                print("DEAD!");
+                break;
+        }
+    }
+
     void Thrust()
     {
 
@@ -55,5 +67,4 @@ public class Rocket : MonoBehaviour
 
         rigidBody.freezeRotation = false; // Return physics control of rotation
     }
-
 }
