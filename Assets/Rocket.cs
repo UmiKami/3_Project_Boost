@@ -45,10 +45,12 @@ public class Rocket : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             audioSource.PlayOneShot(mainEngine);
+            mainEngineParticles.Play();
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             audioSource.Stop();
+            mainEngineParticles.Stop();
         }
     }
 
@@ -72,6 +74,8 @@ public class Rocket : MonoBehaviour
     {
         state = State.Trascending;
         audioSource.Stop();
+        mainEngineParticles.Stop();
+        levelLoadParticles.Play();
         audioSource.PlayOneShot(levelLoadSound);
         Invoke("LoadNextScene", 1f);
     }
@@ -79,6 +83,8 @@ public class Rocket : MonoBehaviour
     {
         state = State.Dying;
         audioSource.Stop();
+        mainEngineParticles.Stop();
+        deathParticles.Play();
         audioSource.PlayOneShot(deathSound);
         Invoke("LoadSceneOne", 1f);
     }

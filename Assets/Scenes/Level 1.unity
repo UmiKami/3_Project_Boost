@@ -720,18 +720,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1121899182, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
-      propertyPath: m_Drag
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1121899182, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1121899184, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
-      propertyPath: mainThrust
-      value: 1.8
-      objectReference: {fileID: 0}
     - target: {fileID: 126403722160273979, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -775,14 +763,6 @@ PrefabInstance:
     - target: {fileID: 126403722160273979, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1233181521989808820, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1233181521989808820, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
-      propertyPath: m_audioClip
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2630164085772916599, guid: 37cc13280ddf59d43af22567cc3174cc, type: 3}
       propertyPath: m_Name
