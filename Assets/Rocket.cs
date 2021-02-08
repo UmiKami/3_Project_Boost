@@ -8,7 +8,13 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField]float rcsThrust = 250f;
     [SerializeField]float mainThrust = 100f;
+    [SerializeField]AudioClip mainEngine;
+    [SerializeField]AudioClip deathSound;
+    [SerializeField]AudioClip levelLoadSound;
 
+    [SerializeField]ParticleSystem mainEngineParticles;
+    [SerializeField]ParticleSystem deathParticles;
+    [SerializeField]ParticleSystem levelLoadParticles;
     Rigidbody rigidBody;
     AudioSource audioSource;
 
@@ -28,19 +34,17 @@ public class Rocket : MonoBehaviour
     {
         if (state == State.Alive)
         {
-            Thrust();
+            RespondToThrustInput();
             Rotate();
             PlaySound();
-        }else{
-            audioSource.Stop();
         }
     }
 
-    private void PlaySound()
+    void PlaySound()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            audioSource.Play();
+            audioSource.PlayOneShot(mainEngine);
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -55,15 +59,28 @@ public class Rocket : MonoBehaviour
             case "Friendly":
                 break;
             case "Finish":
-                state = State.Trascending;
-                Invoke("LoadNextScene", 1f);
+                StartSuccessSequence();
                 break;
             default:
-                state = State.Dying;
-                print("Dead");
-                Invoke("LoadSceneOne", 1f);
+                StartDeathSequence();
                 break;
         }
+    }
+
+
+    private void StartSuccessSequence()
+    {
+        state = State.Trascending;
+        audioSource.Stop();
+        audioSource.PlayOneShot(levelLoadSound);
+        Invoke("LoadNextScene", 1f);
+    }
+    private void StartDeathSequence()
+    {
+        state = State.Dying;
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathSound);
+        Invoke("LoadSceneOne", 1f);
     }
 
     private void LoadSceneOne()
@@ -76,9 +93,8 @@ public class Rocket : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    void Thrust()
+    void RespondToThrustInput()
     {
-
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up * mainThrust);
