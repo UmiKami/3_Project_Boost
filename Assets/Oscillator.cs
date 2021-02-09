@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Oscillator : MonoBehaviour
 {
-    [SerializeField] Vector3 movementVector = new Vector3(10f,10f, 0f);
+    [SerializeField] Vector3 movementVector = new Vector3(10f,10f, 10f);
     [SerializeField] float period = 2f;
     // Start is called before the first frame update
     [Range(0,1)][SerializeField]float movementFactor;
