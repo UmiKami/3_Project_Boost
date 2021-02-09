@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
+
     [SerializeField]float rcsThrust = 250f;
     [SerializeField]float mainThrust = 100f;
     [SerializeField]float levelLoadDelay = 2f;
@@ -19,6 +20,7 @@ public class Rocket : MonoBehaviour
     [SerializeField]ParticleSystem levelLoadParticles;
     Rigidbody rigidBody;
     AudioSource audioSource;
+    bool isColliderEnabled = true;
 
     // Game States
     enum State{Alive, Dying, Trascending};
@@ -34,11 +36,33 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (state == State.Alive)
         {
             RespondToThrustInput();
             Rotate();
             PlaySound();
+        }
+
+        if(Debug.isDebugBuild){
+            ToggleLevel();
+            ToggleCollision();
+        }
+    }
+
+    void ToggleCollision()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && isColliderEnabled == true)
+        {
+            isColliderEnabled = false;
+        }else if (Input.GetKeyDown(KeyCode.C) && isColliderEnabled == false){
+            isColliderEnabled = true;
+        }
+    }
+
+    void ToggleLevel(){
+        if(Input.GetKey(KeyCode.L)){
+            LoadNextScene();
         }
     }
 
@@ -57,17 +81,19 @@ public class Rocket : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision){
-        if(state != State.Alive){return;} // Ignore collisions when dead
+        if(isColliderEnabled){
+            if(state != State.Alive){return;} // Ignore collisions when dead
 
-        switch(collision.gameObject.tag){
-            case "Friendly":
-                break;
-            case "Finish":
-                StartSuccessSequence();
-                break;
-            default:
-                StartDeathSequence();
-                break;
+            switch(collision.gameObject.tag){
+                case "Friendly":
+                    break;
+                case "Finish":
+                    StartSuccessSequence();
+                    break;
+                default:
+                    StartDeathSequence();
+                    break;
+            }
         }
     }
 
